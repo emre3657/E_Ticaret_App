@@ -1,0 +1,193 @@
+﻿.checkoutContainer{
+    margin-bottom:20px;
+}
+
+.checkout-container {
+    max-width: auto;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+
+}
+
+
+.cart-items-check {
+    margin-top:5px;
+    margin-bottom: 20px;
+    padding: 50px;
+    border: 1px solid gray;
+    border-radius: 3px;
+    align-items:center;
+}
+
+.cart-item-check {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    text-align: center;
+    justify-content: space-between;
+}
+
+.item-image-check {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius:3px;
+}
+
+.item-detail-check {
+    display: flex;
+    flex-direction: column;
+    width: 120px
+}
+.label{
+    font-weight:700;
+    font-size:15px;
+    
+}
+.value {
+    font-weight: 500;
+    font-size: 15px;
+
+}
+
+#toplam {
+    color: green;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+#totalPrice {
+    color: green;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.cart-summary {
+    border: 1px solid #ddd;
+    padding: 20px;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+.btn-success {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+}
+
+.artır-azalt{
+    border:1px solid #ddd;
+    padding:5px 2px 5px 2px;
+    border-radius:3px;
+
+}
+
+.artır-azalt input{
+    max-width:30px;;
+    text-align:center;
+    font-size:12px;
+    border:none;
+    
+}
+
+.artır-azalt button{
+    border:none;
+    border-radius:50%;
+    color:green;
+    background:none;
+    font-weight:600;
+}
+
+.artır-azalt button:hover{
+    transform:scale(1.1);
+}
+
+.top {
+    display: flex;
+    flex-direction:row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top:20px;
+
+}
+
+.check-bi {
+    font-size: 30px;
+    font-weight: 700;
+    color: green;
+    margin-right: 20px;
+}
+
+.sepetim {
+    font-size: 25px;
+    font-weight: 700;
+    margin-top:15px;
+
+}
+
+.back {
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid black;
+    padding: 6px 12px;
+    border-radius: 5px;
+    color: white;
+    background-color: black;
+}
+
+    .back:hover {
+        transform: scale(1.03);
+    }
+
+
+.none{
+   display:flex;
+   flex-direction:column;
+   justify-content:center;
+   align-items:center;
+   margin-top:18%;
+   
+}
+    .none p{
+        font-size:30px;
+        font-weight:700;
+        margin-bottom:20px;
+    }
+
+    .none button {
+        border: 1px solid black;
+        padding: 10px;
+        border-radius: 5px;
+        color: white;
+        background-color: black;
+        
+    }
+
+    .none button:hover{
+        transform:scale(1.03);
+    }
+
+.remove-btn {
+    background: none;
+    border: none;
+    color: gray;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+    .remove-btn:hover {
+        color: red;
+    }
+
+.item-divider {
+    width: 100%;
+    border: none;
+    border-top: 1px solid #808080; /* İnce gri çizgi */
+}

@@ -1,0 +1,30 @@
+﻿.buton-container a{
+    width:100px;
+}
+
+.buton-create-list{
+    margin-bottom:5px;
+}
+
+h4 {
+    margin-bottom: 20px;
+}
+.category-product {
+    flex-direction: column;
+    text-align: center;
+    margin-right:50px;
+}
+
+.confirm{
+   text-align:center;
+}
+
+.all {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Yatay ve dikey ortalama */
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}

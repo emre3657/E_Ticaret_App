@@ -1,0 +1,127 @@
+﻿@model MagazaApp.Models.Product
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section Scripts
+{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    <script src="~/js/admin/create-product.js" type="text/javascript"></script>
+}
+
+
+@section create_product {
+
+    <link rel="stylesheet" href="~/css/admin/create-product.css" asp-append-version="true" />
+
+}
+
+
+@{
+    var categories = ViewBag.Categories as List<MagazaApp.Models.Category>;
+}
+
+
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+        <br />
+        SKU: @TempData["SKU"]
+    </div>
+}
+@if (TempData["ErrorMessageCategory"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessageCategory"]
+    </div>
+}
+
+@if (TempData["ErrorMessageSKU"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessageSKU"]
+        <br />
+        @TempData["SKU"]
+    </div>
+}
+
+
+
+
+<div class="create-product-container">
+    <h4>Create A Product</h4>
+    <br />
+
+    <form class="create-product-form-container" asp-controller="Admin" asp-action="CreateProduct" enctype="multipart/form-data" onsubmit="return validateForm()">
+
+        <input asp-for="Name" placeholder="Type a product name"/>
+        <span asp-validation-for="Name" class="text-danger"></span>
+
+        <br />
+
+        <input asp-for="Brand" placeholder="Type a brand name" />
+        <span asp-validation-for="Brand" class="text-danger"></span>
+
+        <br />
+
+        <input asp-for="Model" placeholder="Type a model name" />
+        <span asp-validation-for="Model"  class="text-danger"></span>
+
+        <br />
+
+        <input asp-for="Features" placeholder="Type features of the product " />
+        <span asp-validation-for="Features" class="text-danger"></span>
+
+        <br />
+
+        <input asp-for="Description" placeholder="Type a description" />
+
+        <br />
+
+        <input asp-for="Price" placeholder="Enter a price (Turkish Lira)">
+        <span asp-validation-for="Price" class="text-danger"></span>
+
+        <br />
+
+        <input asp-for="Stock" placeholder="Enter a stock quantity">
+        <span asp-validation-for="Stock" class="text-danger"></span>
+
+        <br />
+
+        <select asp-for="CategoryId">
+            <option value="0" disabled selected>Select a category</option>
+            @if (categories != null)
+            {
+                foreach (var category in categories)
+                {
+                    <option value="@category.Id">@category.Name</option>
+                }
+            }
+        </select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+
+        <br />
+
+        <!-- Resim Yükleme Alanı -->
+        <label name=" Image " for="Image" class=" mb-2">Upload a product image</label>
+
+        <input type="file" id="imageFile" name="imageFile" accept="image/*" />
+        <span id="imageError" class="text-danger"></span>
+
+        <br />
+
+        <!-- Create Butonu -->
+        <button class="btn btn-primary" type="submit">Create A Product</button>
+
+    </form>
+
+    <br />
+
+    <a href="product" class="btn btn-warning">Back</a>
+</div>
+

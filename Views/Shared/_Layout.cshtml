@@ -1,0 +1,179 @@
+﻿@using System.Security.Claims
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] MagazaApp</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/_Layout/_layout.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/MagazaApp.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css">
+
+    <!-- Sayfa özelinde CSS dosyaları için bir alan tanımlıyoruz -->
+    @RenderSection("checkout", required: false)
+    @RenderSection("order_detail", required: false)
+    @RenderSection("login_register", required: false)
+</head>
+<body>
+    <header>
+        <!-- Üst Kısım (Logo, Arama ve İkonlar) -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="padding:15px;">
+            <div class="name-company container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">EROGLU STORE</a>
+            </div>
+            <div class="search-container">
+                <form class="search-form" role="search" asp-controller="Home" asp-action="Search" method="get">
+                    <i class="bi bi-search search-icon" style="margin-right:5px;color:gray;"></i>
+                    <input 
+                        class="ara-input"
+                        name="query" 
+                        type="search" 
+                        placeholder="Aradığınız ürün, kategori veya markayı yazınız." 
+                        aria-label="Search">
+                    <button class="ara-btn" type="submit">Ara</button>
+                </form>
+            </div>
+
+            <!-- İkonlar (Favoriler, Hesap, Sepet) -->
+            <div class="icon ">
+
+                <a href="/Home/Login" class="me-3 text-dark">
+                    <i class="bi bi-heart fs-4"></i> <!-- Favoriler -->
+                </a>
+
+                <!-- Hesap Dropdown -->
+                <div class="dropdown" id="accountDropdown">
+                    <a href="javascript:void(0);" class="me-3 text-dark dropdown-toggle" id="accountIcon">
+                        <i class="bi bi-person fs-4"></i> <!-- Hesap İkonu -->
+                    </a>
+                    <ul class="dropdown-menu" id="accountMenu">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                              @if (User.IsInRole("Admin")) // Kullanıcı admin ise
+                                {
+                                    <li><a class="dropdown-item" asp-controller="Admin" asp-action="Index">Admin Panel</a></li>
+                                }
+                            
+                            <li><a class="dropdown-item" asp-controller="Home" asp-action="Orders">Siparişlerim</a></li>
+                            <li>
+                                <form method="post" action="/Home/Logout" style="display:inline;">
+                                    <button type="submit" class="dropdown-item">Çıkış Yap</button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li><a class="dropdown-item" asp-controller="Home" asp-action="Login">Giriş Yap</a></li>
+                            <li><a class="dropdown-item" asp-controller="Home" asp-action="Register">Üye Ol</a></li>
+                        }
+                    </ul>
+                </div>
+
+               
+
+                <!-- Bildirim İkonu -->
+                <div class="dropdown me-3 d-flex" id="notificationDropdown">
+                    
+                    <a href="javascript:void(0);" class=" text-dark dropdown-toggle" id="notificationIcon" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-bell fs-4"></i> <!-- Bildirim İkonu -->
+                    </a>
+                    <span class="notification-count-badge" id="notificationBadge">0</span> <!-- Okunmamış bildirim sayısı -->
+                    
+                   
+                    <ul class="dropdown-menu" id="notificationMenu">
+                        <!-- Bildirimler buraya gelecek -->
+                        @await Component.InvokeAsync("Notifications", new { userId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier)) })
+                    </ul>
+                </div>
+            
+
+                <i class="bi bi-cart fs-4 cart-icon" id="cartIcon"></i>
+                <span class="cart-count-badge" id="cartCountBadge">0</span> <!-- Ürün sayısını göstermek için badge -->
+
+                <div id="overlay" class="overlay"></div>
+                <!-- Sepet Yan Panel -->
+                <div id="cartSidebar" class="cart-sidebar">
+                    <div class="cart-sidebar-content">
+                        <h5 style="text-align:center;">Sepetiniz</h5>
+                        <hr>
+                        <button onclick="toggleCart()" class="close-btn">
+                            <i class="bi bi-x"></i> <!-- Bootstrap X İkonu -->
+                        </button>
+                        <!-- Sepet İçeriği -->
+                        <div id="cartItems">
+                            @await Component.InvokeAsync("Cart")
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </nav>
+
+        <!-- Alt Menü (Kategoriler) -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-ligh">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    @await Component.InvokeAsync("CategoryMenu")
+                </div>
+            </div>
+        </nav>
+    </header>
+
+ 
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container" >
+            &copy; 2024 - Eroglu Holding - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    @await RenderSectionAsync("Scripts", required: false)
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/_Layout/cart.js"></script>
+    <script src="~/js/_Layout/notifications.js"></script>
+
+</body>
+
+
+
+</html>
+
+<script>
+    const accountIcon = document.getElementById("accountIcon");
+    const accountMenu = document.getElementById("accountMenu");
+
+    // İkonun veya menünün üzerinde olunduğunda menüyü açık tut
+    accountIcon.addEventListener("mouseover", function () {
+        accountMenu.classList.add("show");
+    });
+
+    accountMenu.addEventListener("mouseover", function () {
+        accountMenu.classList.add("show");
+    });
+
+    // İkon veya menünün dışına çıkıldığında menüyü kapat
+    accountIcon.addEventListener("mouseleave", function (event) {
+        if (!accountMenu.contains(event.relatedTarget)) {
+            accountMenu.classList.remove("show");
+        }
+    });
+
+    accountMenu.addEventListener("mouseleave", function (event) {
+        if (!accountIcon.contains(event.relatedTarget)) {
+            accountMenu.classList.remove("show");
+        }
+    });
+</script>
+
+
+
+

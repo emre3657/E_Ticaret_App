@@ -1,0 +1,128 @@
+﻿@model List<MagazaApp.Models.Order>
+@using System.Globalization
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@if (TempData["ConfirmationMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["ConfirmationMessage"]</div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@Html.Raw(TempData["ErrorMessage"])</div>
+}
+
+
+@section confirmations {
+    <link rel="stylesheet" href="~/css/admin/confirmations.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+}
+
+<h2>Siparişler</h2>
+<hr />
+
+@if (!Model.Any())
+{
+    <p class="empty-message">Bekleyen sipariş yok.</p>
+}
+else
+{
+    bool hasNonPendingOrders = Model.Any(order => order.Status != OrderStatus.Pending);
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Sipariş No</th>
+                <th>Müşteri Id / Ad</th>
+                <th>Tarih / Saat</th>
+                <th>Toplam Tutar</th>
+                <th>Durum</th>
+                <th>Detaylar</th>
+                <th>İşlem</th>
+                @if (hasNonPendingOrders)
+                {
+                    <th>Sil</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td>@order.OrderId</td>
+                    <td>@order.User.Id / @order.User.Name</td>
+                    <td>@order.OrderDate.ToString("dd.MM.yyyy '/' HH:mm")</td>
+                    <td>@order.TotalAmount.ToString("C", new CultureInfo("tr-TR"))</td>
+                    <td>
+                        <span style="
+                            background-color: @(order.Status == OrderStatus.Pending ? "#ffc107" : order.Status == OrderStatus.Approved ? "#28a745" : "#dc3545");
+                            color: white;
+                            padding: 5px 10px;
+                            border-radius: 5px;
+                            font-weight: bold;">
+                            @order.Status
+                        </span>
+                    </td>
+                    <td><a asp-action="OrderDetails" asp-route-id="@order.OrderId" class="btn btn-info ms-1">Görüntüle</a></td>
+                    <td>
+                        @if (order.Status == OrderStatus.Pending)
+                        {
+                            <form method="post" asp-action="ConfirmOrder" asp-controller="Admin" style="display: inline;">
+                                <input type="hidden" name="orderId" value="@order.OrderId" />
+                                <button type="submit" class="btn btn-success" name="isApproved" value="true">Onayla</button>
+                                <button type="submit" class="btn btn-danger" name="isApproved" value="false" onclick="return confirmReject()">Reddet</button>
+                            </form>
+                        }
+                        else if (order.Status == OrderStatus.Approved)
+                        {
+                            <div class="d-flex flex-column">
+                                <span class="text-success">
+                                    <i class="bi bi-check-circle-fill m-1"></i>Sipariş Onaylandı
+                                </span>
+                                <form method="post" asp-action="CancelOrder" asp-controller="Admin" style="display: inline;">
+                                    <input type="hidden" name="orderId" value="@order.OrderId" />
+                                    <button type="submit" class="btn btn-warning mt-1">İptal Et</button>
+                                </form>
+                            </div>
+                        }
+                        else if (order.Status == OrderStatus.Rejected)
+                        {
+                            <span class="text-danger">
+                                <i class="bi bi-x-circle-fill"></i> Sipariş Reddedildi
+                            </span>
+                        }
+                    </td>
+                    @if (order.Status != OrderStatus.Pending)
+                    {
+                        <td>
+                            <form method="post" asp-action="DeleteOrder" asp-controller="Admin" style="display: inline;" onsubmit="return confirmDelete()">
+                                <input type="hidden" name="orderId" value="@order.OrderId" />
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+<script>
+
+    function confirmDelete() {
+        return confirm("Bu siparişi silmek istediğinizden emin misiniz?");
+    }
+
+    function confirmReject() {
+        return confirm("Bu siparişi reddetmek istediğinizden emin misiniz?");
+    }
+
+</script>
+

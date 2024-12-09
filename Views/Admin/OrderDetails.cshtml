@@ -1,0 +1,138 @@
+﻿@model MagazaApp.Models.Order
+@using System.Globalization
+
+@section order_detail_admin {
+    <link rel="stylesheet" href="~/css/admin/orderAndDetails.css" asp-append-version="true" />
+
+}
+
+@if (TempData["ConfirmationMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["ConfirmationMessage"]</div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+@{
+    Layout = "_AdminLayout";
+}
+<div class="top">
+    <h2 class="h2-detail">Sipariş Detayları</h2>
+    <button class="back-conf" onclick="window.location.href='/admin/confirmations'">Geri</button>
+</div>
+
+<hr />
+<div class="order-details">
+    <p><strong>Sipariş Numarası:</strong> @Model.OrderId</p>
+    <p><strong>Tarih / Saat:</strong> @Model.OrderDate.ToString("dd.MM.yyyy '/' HH:mm")</p>
+    <p>
+        <strong>Durum:</strong>  <span style="
+            background-color: @(Model.Status == OrderStatus.Pending ? "#ffc107" : Model.Status == OrderStatus.Approved ? "#28a745" : "#dc3545");
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;">
+            @Model.Status
+        </span>
+    </p>
+    <p><strong>Toplam Tutar:</strong> @Model.TotalAmount.ToString("C", new CultureInfo("tr-TR"))</p>
+</div>
+
+
+
+<h3>Sipariş İçeriği</h3>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Ürün</th>
+            <th>Resim</th>
+            <th>Adet</th>
+            <th>Birim Fiyat</th>
+            <th>Toplam</th>
+            <th>Sil</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderItems)
+        {
+            <tr>
+                <td>@item.Product.SKU</td>
+                <td>
+                    <img src="@item.Product.ImagePath" />
+                </td>
+                <td >
+                    @if (Model.Status != OrderStatus.Rejected)
+                    {
+                        <div>
+                            <form method="post" asp-action="UpdateOrderItem" asp-controller="Admin"
+                                  style="display: flex; flex-direction: column; align-items: center;"
+                                  onsubmit="return checkStockBeforeSubmit(event, this)">
+                                <input type="hidden" name="orderItemId" value="@item.OrderItemId" />
+                                <input type="hidden" name="productId" value="@item.Product.Id" /> <!-- productId'yi buraya ekliyoruz -->
+                                <input 
+                                    type="number" 
+                                    onfocus="saveOldValue(this)"
+                                    name="quantity" 
+                                    value="@item.Quantity"        
+                                    class="form-control" 
+                                    style="width:70px; text-align: center; margin-bottom: 5px;" />
+                                <button type="submit" class="btn btn-primary btn-sm">Güncelle</button>
+                            </form>
+                        
+                        </div>
+                    }
+                    else
+                    { 
+                        <input type="number" name="quantity" value="@item.Quantity" readonly style="width:50px; text-align:center; padding-left:16px;" />   
+                    }
+                </td>
+
+                <td>@item.UnitPrice.ToString("C", new CultureInfo("tr-TR"))</td>
+                <td>@((item.Quantity * item.UnitPrice).ToString("C", new CultureInfo("tr-TR")))</td>
+                <td>
+                    <form method="post" asp-action="DeleteOrderItem" asp-controller="Admin" onsubmit="return confirmDelete()">
+                        <input type="hidden" name="orderItemId" value="@item.OrderItemId" />
+                        <button type="submit" class="btn btn-danger">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    function checkStockBeforeSubmit(event, form) {
+        event.preventDefault(); // Formun hemen gönderilmesini durdur
+
+        const quantityInput = form.querySelector('input[name="quantity"]');
+        const quantity = quantityInput.value;
+        const productId = form.querySelector('input[name="productId"]').value; // productId'yi buradan alıyoruz.
+        const orderItemId = form.querySelector('input[name="orderItemId"]').value;
+
+        // Stok kontrolünü sunucudan yap
+        fetch(`/admin/check-stock?productId=${productId}&quantity=${quantity}&orderItemId=${orderItemId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (!data.success) {
+                    alert(data.message); // Stok yetersizse uyarı göster
+                    quantityInput.value = quantityInput.getAttribute("data-old-value"); // Hata varsa eski değere dön
+                } else {
+                    form.submit(); // Stok yeterliyse formu gönder
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    function confirmDelete() {
+        return confirm("Bu sipariş öğesini silmek istediğinizden emin misiniz?");
+    }
+
+    function saveOldValue(input) {
+        input.setAttribute("data-old-value", input.value); // Mevcut değeri kaydet
+    }
+</script>

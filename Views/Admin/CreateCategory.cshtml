@@ -1,0 +1,85 @@
+﻿@model MagazaApp.Models.Category
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+@section create_category {
+    <link rel="stylesheet" href="~/css/admin/create-category.css" asp-append-version="true" />
+}
+
+@section Scripts
+{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+
+
+@{
+    var categories = ViewBag.Categories as List<MagazaApp.Models.Category>;
+}
+
+
+
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+
+
+<div class="create-category-container">
+
+    <h4>Create A Category</h4>
+
+    <br />
+
+    <form class="create-category-form-container" asp-controller="Admin" asp-action="CreateCategory">
+
+        <input asp-for="Name" placeholder="Type a category name"/>
+        <span asp-validation-for="Name" class="text-danger"></span>
+
+        <br />
+
+        <input style="margin-bottom:10px;" asp-for="Description" placeholder="Type a description" />
+
+
+        <label>Select a parent category</label>
+        
+        <select asp-for="ParentCategoryId">
+           
+            <option value="" >None</option>
+            @if (categories != null)
+            {
+                foreach (var category in categories)
+                {
+                    <option value="@category.Id">@category.Name</option>
+                }
+            }
+        </select>
+
+        <br />
+
+        <button class=" btn btn-primary" >Create A Category</button>
+
+    </form>
+
+    <br />
+
+    <a href="category" class="btn btn-warning">Back</a>
+
+</div>
+

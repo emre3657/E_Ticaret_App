@@ -1,0 +1,93 @@
+﻿.carousel-item img {
+    height: 500px; /* Görüntü yüksekliğini ayarlayın */
+    object-fit: cover;
+}
+
+.carousel-caption {
+    background-color: rgba(0, 0, 0, 0.5); /* Arka plan rengini hafif şeffaf yapın */
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.carousel-caption h5 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.carousel-caption p {
+    font-size: 1.2rem;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.5); /* İkonların arka planını hafif şeffaf yapın */
+    border-radius: 50%;
+}
+
+.onecikan{
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+}
+
+.onecikan img {
+    width:375px;
+    height:350px;
+}
+
+.onecikan-item {
+   text-align:center;
+   font-size:18px;
+   font-weight:600;
+}
+
+.image-container {
+    position: relative;
+    display: inline-block;
+    margin-top:30px;
+}
+
+
+.explore-button {
+    position: absolute;
+    bottom: 20%; /* Butonun konumunu ayarlayın */
+    left: 5%;
+    padding: 10px 20px;
+    background-color:aliceblue ;
+    font-weight: 500;
+    text-decoration:none;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    color:black;
+    width:100px;
+    text-align:center;
+    font-weight:400;
+}
+
+    .explore-button:hover {
+        color: black;
+        background-color: #d7d6d2;
+    }
+
+.overlay-text1 {
+    position: absolute;
+    top: 20%; /* Üstten uzaklık - isteğe göre ayarlayın */
+    left: 5%; /* Soldan uzaklık - isteğe göre ayarlayın */
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+
+}
+.overlay-text2 {
+    position: absolute;
+    top: 35%; /* Üstten uzaklık - isteğe göre ayarlayın */
+    left: 5%; /* Soldan uzaklık - isteğe göre ayarlayın */
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.carousel-item {
+    transition: transform 1s ease-in-out; /* Geçiş süresini 1 saniye olarak ayarlayın */
+}

@@ -1,0 +1,427 @@
+﻿html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+
+.btn:focus, .btn:active:focus, .btn-link, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+footer .container{
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+   
+}
+
+footer .container a{
+    margin-left:10px;
+    
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+.name-company{
+    margin-left:30px;
+    font-weight:700;
+}
+.search-container {
+    position: absolute; /* Ortalamak için konumlandırma */
+    left: 50%; /* Yatayda %50 noktaya taşı */
+    transform: translateX(-50%); /* Tam ortalama sağlamak için geri çek */
+
+}
+
+.search-form {
+    align-items: center;
+    display: flex;
+    padding: 10px;
+    width: 480px;
+    background: white;
+    border: 1px solid #808080;
+    border-radius:5px;
+}
+
+
+.ara-input{
+    margin-right: 5px;
+    width:400px;   
+    border:none;
+    height:25px;
+
+}
+
+.ara-input::placeholder {
+    font-size: 13px; /* Placeholder yazı boyutu */
+    color: #888; /* Placeholder yazı rengi */
+    font-weight: 400; /* Placeholder yazı kalınlığı */
+
+}
+
+
+.ara-input:focus {
+    outline: none;
+}
+
+.ara-btn { /* .search-form button*/
+    color: white;
+    background: black;
+    border-radius:5px;
+    border:none;
+    height: 25px;
+    width:60px;
+    font-size:13px;
+    font-weight:600;
+
+}
+
+.icon{
+    margin-right:100px;
+    align-items:center;
+    display:flex;
+    flex-direction:row;
+
+}
+
+.dropdown-toggle {
+
+    text-decoration: none !important;
+}
+
+    .dropdown-toggle::after {
+        margin-left: -2px; /* Aşağı oku ikona daha yaklaştırır */
+        
+    }
+
+
+.navbar-nav{
+    justify-content: center;
+    width:100%;
+}
+
+
+.dropdown-menu {
+    transition: all 0.3s ease;
+}
+
+/* Ana menü ayarları */
+.navbar-nav .nav-item {
+    position:relative;
+}
+
+/* Ana kategoriye ait ilk seviye alt menü */
+.navbar-nav .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: aliceblue;
+    border: 1px solid #ddd;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    min-width: 200px;
+}
+
+/* Ana kategoriye hover yapılınca alt menünün görünmesi */
+.navbar-nav .nav-item:hover > .dropdown-menu {
+    display: block;
+}
+
+/* İç içe (ikinci seviye ve sonrası) alt kategoriler */
+.dropdown-menu .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    transform: translateX(0%);
+    background-color: aliceblue;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    min-width: 200px;
+    padding: 0px;
+    border: 1px solid #ddd;
+}
+
+/* İç içe kategoriye hover yapılınca görünür hale getirme */
+.dropdown-menu .dropdown-item:hover > .dropdown-menu {
+    display: block;
+}
+
+/* Alt kategori bağlantıları için stil */
+.dropdown-menu .dropdown-item {
+    color: black;
+    text-decoration: none;
+    font-size: 14px;
+    text-align: left;
+    padding: 8px 16px;
+}
+
+/* Alt kategori hover durumu */
+.dropdown-menu .dropdown-item:hover {
+    background-color: white;
+    color: black;
+    font-weight: 600;
+}
+
+.cart-count-badge {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    padding: 3px;
+    background-color: #ff3d3d; /* Daha parlak bir kırmızı renk */
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1;
+    border-radius: 50%; /* Tam yuvarlak görünüm */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Hafif bir gölge */
+}
+.notification-count-badge {
+    display: inline-block;
+    width: 20px; /* Sabit genişlik */
+    height: 20px;
+    padding: 3px;
+    background-color: #ff3d3d; /* Daha parlak bir kırmızı renk */
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1;
+    border-radius: 50%; /* Tam yuvarlak görünüm */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Hafif bir gölge */
+    position: absolute;
+    right: -7px;
+    top: 8px;
+}
+
+
+/* Bildirim Menüsü Ayarları */
+#notificationMenu {
+    position: absolute;
+    top: 100%; /* İkonun hemen altında göster */
+    left: 50%; /* Ortalamak için */
+    transform: translateX(-50%); /* Ortalamak için */
+    display: none; /* Varsayılan olarak gizli */
+}
+
+    /* JavaScript ile "show" sınıfı eklendiğinde menüyü göster */
+    #notificationMenu.show {
+        display: block;
+    }
+
+
+.cart-icon {
+    cursor: pointer; /* İmleci tıklanabilir yap */
+}
+
+/* Sepet Yan Panel Stili */
+.cart-sidebar {
+    height: 100%;
+    width: -200px;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    right: 0;
+    background-color: white;
+    overflow-x: hidden;
+    transition: 0.5s;
+    border-left: 2px solid #e0e0e0; /* İnce sol kenar çizgisi */
+    box-shadow: -7px 0 15px rgba(0, 0, 0, 0.2); /* Hafif bir gölge */
+    /* Başlangıçta sağa kaydırılmış */
+    transform: translateX(100%);
+    transition: transform 0.4s ease; /* Kayma geçiş efekti */
+}
+
+
+    .cart-sidebar.open {
+        transform: translateX(0); /* Açılınca sola kayarak görünür olur */
+        width:auto;
+    }
+
+
+
+.cart-sidebar-content {
+    padding: 40px;
+    width: 100%;
+    overflow-y: auto;
+}
+
+
+/* Kapatma Butonu */
+.close-btn {
+    font-size: 28px;
+    font-weight:600;
+    border: none;
+    background: none;
+    cursor: pointer;
+    position:absolute;
+    left:0px;
+    top:0px;
+    color:#000;
+  
+}
+
+/* Sepet içeriği */
+#cartItems {
+    margin-top: 20px;
+}
+
+
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    flex-direction:row;
+}
+
+   
+.cart-item-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 10px;
+    border: 1px solid gray;
+    border-radius:5px;
+    padding:10px;
+}
+
+.cart-item-info {
+    display: flex;
+    flex-direction: column;
+    font-size:14px;
+}
+
+.cart-item-brand, .cart-item-model {
+    font-weight: bold;
+}
+
+.cart-end{
+    text-align:center;
+
+}
+
+/* Overlay stili */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5); /* Yarı saydam siyah */
+    z-index: 999; /* Sepet panelinden bir alt seviyede */
+    display: none; /* Başlangıçta gizli */
+}
+
+
+.cart-item-controls {
+    margin-left:15px;
+    display: flex;
+    align-items: center;
+    flex-direction:column;
+}
+
+.dec-inp-inc {
+    display: flex;
+    flex-direction: row;
+}
+
+.quantity-btn {
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    color: black;
+    border: 1px solid #808080;
+    border-radius:5px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.quantity-btn:hover{
+    background-color:black;
+    color:white;
+}
+
+.quantity-input {
+    width: 30px;
+    text-align: center;
+    margin: 0 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size:11px;
+}
+
+.remove-btn {
+    background: none;
+    border: none;
+    color: gray;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.remove-btn:hover{
+    color:red;
+}
+
+
+  #accountMenu.show {
+        display: block;
+    }
+
+
+/* İkonu ortalamak ve yukarıda konumlandırmak için */
+#accountIcon {
+    display: inline-block;
+    position: relative;
+    text-align: center;
+    top: 0;
+    font-size: 1rem; /* İkon boyutu */
+    cursor: pointer;
+    vertical-align: middle; /* Orta hizalama */
+}
+
+/* Menüyü ikonun altında ortalamak için */
+#accountMenu {
+    display: none;
+    position: absolute;
+    top: 100%; /* İkonun hemen altında başlar */
+    left: 50%; /* Yatay ortalama */
+    transform: translateX(-50%); /* Ortalamayı tam yapar */
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    width: 150px; /* Menü genişliği */
+    padding: 10px 0;
+    z-index: 1000; /* Üstte görünmesi için */
+    text-align: center; /* Menü içindeki öğelerin ortalanması */
+}
+
+    /* Menü içindeki öğelere stil */
+    #accountMenu a, #accountMenu button {
+        display: block;
+        padding: 8px 15px;
+        color: #333;
+        text-decoration: none;
+        font-size: 0.9rem;
+    }
+
+        /* Hover durumunda menü seçeneklerinin arka plan rengini değiştir */
+        #accountMenu a:hover, #accountMenu button:hover {
+            background-color: #f0f0f0;
+        }

@@ -1,0 +1,18 @@
+﻿@model List<MagazaApp.Models.Notification>
+
+@foreach (var notification in Model)
+{
+   
+    <li>
+        <a href="javascript:void(0);" class="dropdown-item mark-as-read" data-id="@notification.Id">
+            <p>@notification.Message</p>
+            <small>@notification.CreatedAt.ToString("g")</small>
+        </a>
+    </li>
+    <hr />
+}
+
+@if (!Model.Any())
+{
+    <li><a class="dropdown-item">Henüz bildirim yok</a></li>
+}

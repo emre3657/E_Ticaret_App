@@ -1,0 +1,99 @@
+﻿@model List<MagazaApp.Models.Product>
+@using System.Globalization
+<link rel="stylesheet" href="~/css/home/listProducts.css" asp-append-version="true" />
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+@if (TempData["query"] != null)
+{
+    <h2>Arama Sonuçları</h2>
+    <hr />
+}
+
+
+<div class="product-list">
+    @if (Model != null)
+    {
+        @foreach (var product in Model)
+        {
+            <div class="product-card">
+                <img src="@product.ImagePath" alt="@product.Name" class="product-image" />
+                <div class="product-info">
+                    <h5 class="product-brand">@product.Brand</h5>
+                    <p class="product-model">@product.Model</p>
+                    <p class="product-price">@product.Price.ToString("C", new CultureInfo("tr-TR"))</p>
+
+
+                </div>
+                <button class="buy-button" onclick="addToCart(@product.Id)">Sepete Ekle</button>
+                <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#reviewModal" onclick="setProductId(@product.Id)">
+                    <i class="bi bi-chat-left"></i> Yorum Yap
+                </button>
+
+            </div>
+        }
+    }
+    else
+    {
+        <span>Gösterilecek bir ürün yok.</span>
+    }
+
+</div>
+
+
+@section scripts{
+    <script src="~/js/_Layout/cart.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        function setProductId(productId) {
+            document.getElementById("productId").value = productId;
+        }
+    </script>
+
+
+}
+
+
+<!-- Yorum Yap Modalı -->
+<div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reviewModalLabel">Yorum Yap</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="reviewForm" method="post" action="@Url.Action("AddReview", "Home")">
+                    <input type="hidden" name="productId" id="productId" />
+                    <div class="mb-3">
+                        <label for="userName" class="form-label">Adınız</label>
+                        <input type="text" class="form-control" id="userName" name="userName" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="content" class="form-label">Yorumunuz</label>
+                        <textarea class="form-control" id="content" name="content" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Yorumu Gönder</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

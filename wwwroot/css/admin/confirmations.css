@@ -1,0 +1,53 @@
+﻿h2 {
+    margin-top:20px;
+}
+
+/* Boş sipariş mesajı */
+.empty-message {
+    font-size: 18px;
+    color: #888;
+    margin-top: 30px;
+    text-align: center;
+}
+
+
+.table {
+    width: 90%;
+    margin: auto;
+    border-collapse: collapse;
+    margin-top:20px;
+}
+
+.table-bordered {
+    border: 1px solid #ddd;
+}
+
+.table thead th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+    text-align: center;
+}
+
+.table tbody td {
+    text-align: center;
+    vertical-align: middle; /* Hücre içeriğini dikey olarak ortalar */
+}
+
+.alert {
+    width: 80%;
+    margin: 15px auto;
+    text-align: center;
+}
+
+.btn {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+}
+
+.btn-success {
+    margin-right: 5px;
+}
+
+.btn-danger {
+    margin-left: 5px;
+}

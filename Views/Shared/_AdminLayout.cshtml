@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Admin Panel</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/admin/_layout.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css">
+    @RenderSection("index", required: false)
+    @RenderSection("create_category", required: false)
+    @RenderSection("create_product", required: false)
+    @RenderSection("category", required: false)
+    @RenderSection("product", required: false)
+    @RenderSection("confirmations", required: false)
+    @RenderSection("order_detail_admin", required: false)
+</head>
+<body>
+    <div class="d-flex flex-column min-vh-100">
+        <!-- Flex container -->
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">Admin Panel</a>
+                </div>
+                <div class="collapse navbar-collapse admin-link" id="adminNavbar">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-controller="Admin" asp-action="Index">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Admin" asp-action="Category">Categories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Admin" asp-action="Product">Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Admin" asp-action="Confirmations">Confirmations</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="store" style="margin-right:30px;">
+                    <a class="navbar-brand" href="~/">Store</a>
+                </div>
+            </nav>
+        </header>
+
+        <div class="container mt-4 flex-grow-1">
+            <!-- flex-grow-1 ekledik -->
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+
+        <footer class="border-top footer text-muted mt-auto">
+            <!-- mt-auto ekledik -->
+            <div class="container">
+                &copy; 2024 - Admin Panel
+            </div>
+        </footer>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/admin.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

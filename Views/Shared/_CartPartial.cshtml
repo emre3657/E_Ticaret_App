@@ -1,0 +1,47 @@
+﻿@model List<CartItem>
+@using System.Globalization
+
+@if (Model.Count == 0)
+{
+    <p>Sepetiniz boş.</p>
+}
+else
+{
+    <ul class="cart-items">
+        @foreach (var item in Model)
+        {
+            <li class="cart-item">
+                <img src="@item.ImagePath" alt="@item.Brand @item.Model" class="cart-item-image" />
+                <div class="cart-item-info">
+                    <span class="cart-item-brand">@item.Brand</span>
+                    <span class="cart-item-model">@item.Model</span>
+                    <span>@item.Price.ToString("C", new CultureInfo("tr-TR"))</span>
+                </div>
+                <!-- Miktar Kontrol Bölümü -->
+                <div class="cart-item-controls">
+                    <button class="remove-btn" onclick="removeFromCart(@item.ProductId)">
+                        <i class="bi bi-trash"></i> <!-- Bootstrap Silme İkonu -->
+                    </button>
+                    <div class="dec-inp-inc">
+                        <button class="quantity-btn decrease-btn" onclick="updateQuantity(@item.ProductId, -1)">-</button>
+                        <input type="text"
+                               class="quantity-input"
+                               value="@item.Quantity"
+                               onfocus="saveOldValue(this)"
+                               data-product-id="@item.ProductId"
+                               onchange="updateQuantityDirectly(@item.ProductId, this.value)" />
+                        <button class="quantity-btn increase-btn" onclick="updateQuantity(@item.ProductId, 1)">+</button>
+                    </div>
+                    
+                 
+                </div>
+            </li>  
+        }
+    </ul>
+    <div class="cart-end">
+        <hr>
+        <p><strong>Toplam:</strong> @Model.Sum(i => i.Quantity * i.Price).ToString("C", new CultureInfo("tr-TR"))</p>
+        <a href="/Home/Checkout" class="btn btn-primary">Kasaya Git</a>
+    </div>
+   
+}

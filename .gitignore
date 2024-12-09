@@ -1,0 +1,9 @@
+# Visual Studio cache klasörleri
+.vs/
+
+# Derlenmiş dosyalar
+bin/
+obj/
+
+# Veri tabanı bağlantıları
+appsettings.json

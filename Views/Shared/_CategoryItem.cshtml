@@ -1,0 +1,19 @@
+﻿@model MagazaApp.Models.Category
+
+<li class="nav-item @(Model.SubCategories?.Any() == true ? "dropdown" : "")">
+    <a class="dropdown-item @(Model.SubCategories?.Any() == true ? "dropdown-toggle" : "")"
+       href="/Home/ListProducts/@Model.Id">
+        @Model.Name
+    </a>
+
+    @if (Model.SubCategories?.Any() == true)
+    {
+        <ul class="dropdown-menu">
+            @foreach (var subCategory in Model.SubCategories)
+            {
+                @await Html.PartialAsync("_CategoryItem", subCategory)
+            }
+        </ul>
+    }
+</li>
+

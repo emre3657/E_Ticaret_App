@@ -1,0 +1,20 @@
+﻿.create-product-form-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.create-product-container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+label {
+    color:chocolate;
+    font-size:18px;
+    font-weight:600;
+}
+
+input[type="file"] {
+    border-color: #888;
+    background-color: #eee;
+}

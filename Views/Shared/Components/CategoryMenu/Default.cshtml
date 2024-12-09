@@ -1,0 +1,8 @@
+﻿@model MagazaApp.ViewModels.CategoryListViewModel
+
+<ul class="navbar-nav">
+    @foreach (var category in Model.Categories)
+    {
+        @await Html.PartialAsync("_CategoryItem", category)
+    }
+</ul>

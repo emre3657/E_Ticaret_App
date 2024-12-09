@@ -1,0 +1,85 @@
+﻿@model List<CartItem>
+@using System.Globalization
+
+@if (Model == null || !Model.Any())
+{
+    <div class="none">
+        <p>Sepetinizde Ürün Bulunmamaktadır</p>
+        <button onclick="location.href='/Home/Index'">Alışverişe Devam Et</button>
+    </div>
+}
+else
+{
+    <div class="container">
+
+        <div class="top">
+            <div class="d-flex align-items-center">
+                <i class="bi bi-cart check-bi"></i>
+                <p class="sepetim">Sepetim</p>
+            </div>
+            <button class="back" onclick="location.href='/Home/Index'">
+                <i class="bi bi-arrow-left me-1"></i>Alışverişe devam et
+            </button>
+        </div>
+
+
+        <div class="cart-items-check">
+            @foreach (var item in Model)
+            {
+                <div class="cart-item-check">
+                    <img src="@item.ImagePath" alt="@item.Brand @item.Model" class="item-image-check" />
+                    <div class="item-detail-check">
+                        <p class="label">@item.Brand</p>
+                        <p class="value">@item.Model</p>
+                    </div>
+                    <div class="item-detail-check">
+                        <p class="label">Adet</p>
+                        <div class="artır-azalt">
+                            <button onclick="updateQuantity(@item.ProductId, -1)">-</button>
+                            <input type="text"
+                                   class="quantity-input"
+                                   value="@item.Quantity"
+                                   onfocus="saveOldValue(this)"
+                                   data-product-id="@item.ProductId"
+                                   onchange="updateQuantityDirectly(@item.ProductId, this.value)" />
+                            <button onclick="updateQuantity(@item.ProductId, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="item-detail-check">
+                        <p class="label">Fiyat</p>
+                        <p class="value">@item.Price.ToString("C", new CultureInfo("tr-TR"))</p>
+                    </div>
+                    <div class="item-detail-check">
+                        <p class="label">Toplam</p>
+                        <p class="value" id="toplam">@((item.Quantity * item.Price).ToString("C", new CultureInfo("tr-TR")))</p>
+
+
+                    </div>
+                    <div class="item-detail-check">
+                        <p class="label">Sil</p>
+                        <i class="bi bi-trash remove-btn" onclick="removeFromCart(@item.ProductId)"></i>
+                    </div>
+                </div>
+                <hr class="item-divider" />
+            }
+        </div>
+
+        <div class="cart-summary">
+            <h3>Genel Toplam</h3>
+            <p id="totalPrice">@Model.Sum(item => item.Quantity * item.Price).ToString("C", new CultureInfo("tr-TR"))</p>
+            <form method="post" action="/Home/PlaceOrder">
+                <button type="submit" class="btn btn-success">Satın Al</button>
+            </form>
+        </div>
+    </div>
+
+   
+}
+
+@section checkout {
+        <link rel="stylesheet" href="~/css/home/checkout.css" asp-append-version="true" />
+}
+
+@section Scripts{
+    <script src="~/js/_Layout/cart.js"></script>
+}

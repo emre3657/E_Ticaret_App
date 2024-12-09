@@ -1,0 +1,22 @@
+﻿@model List<CartItem>
+
+@{
+    Layout = "_Layout";
+}
+
+@section checkout {
+    <link rel="stylesheet" href="~/css/home/checkout.css" asp-append-version="true" />
+}
+
+@section Scripts {
+    <script src="~/js/_Layout/cart.js"></script>
+}
+ 
+<div class="checkoutContainer" id="checkoutContainer">
+    <div class="checkout-container">
+        <!-- Dinamik olarak güncellenecek ürün içeriği -->
+        @await Html.PartialAsync("_CheckoutPartial", Model)
+    </div>
+
+</div>
+

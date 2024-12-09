@@ -1,0 +1,48 @@
+﻿@model MagazaApp.Models.User
+
+@{
+    ViewData["Title"] = "Sign Up";
+    Layout = "_Layout";
+}
+
+@section login_register {
+    <link rel="stylesheet" href="~/css/home/login-register.css" asp-append-version="true" />
+}
+
+<div class="form-container">
+    <h2>Sign Up</h2>
+
+    <form asp-action="Register" method="post" class="register-form">
+        <div class="form-group mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input asp-for="Email" class="form-control" placeholder="Enter your email" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input asp-for="Password" type="password" class="form-control" placeholder="Enter your password" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input asp-for="Name" class="form-control" placeholder="Enter your name" />
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="address" class="form-label">Adres</label>
+            <input asp-for="Address" class="form-control" placeholder="Enter your address" />
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="phonenumber" class="form-label">Phone Number</label>
+            <input asp-for="PhoneNumber" class="form-control" placeholder="Enter your phone number" type="tel" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Sign Up</button>
+        <p class="text-center mt-2">
+            Already have an account? <a asp-action="Login" asp-controller="Home" class="register-link">Log in here</a>
+        </p>
+    </form>
+</div>

@@ -1,0 +1,17 @@
+﻿.top {
+    display: flex;
+    justify-content: space-between; /* Öğeler arasında boşluk bırakır */
+    align-items: center; /* Dikeyde aynı hizaya getirir */
+}
+.edit-delete {
+    justify-content: center;
+    display: flex;
+}
+
+.btn-edit-category {
+    margin-right: 5px;
+}
+.edit-category-modal label{
+    color:brown;
+    font-weight:600;
+}

@@ -1,0 +1,36 @@
+﻿
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.navbar-nav {
+    justify-content: center;
+    width: 100%;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer {
+    background-color: #f8f9fa;
+    text-align: center;
+    padding: 10px 0;
+}
+.admin-link {
+    position: absolute; /* Ortalamak için konumlandırma */
+    left: 50%; /* Yatayda %50 noktaya taşı */
+    transform: translateX(-50%); /* Tam ortalama sağlamak için geri çek */
+}
+
+.container-fluid a{
+    margin-left:20px;
+}

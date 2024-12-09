@@ -1,0 +1,31 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section index {
+    <link rel="stylesheet" href="~/css/admin/index.css" asp-append-version="true" />
+}
+
+<div class="all">
+    <div class=" category-product">
+        <h4>Kategori ve Ürün İşlemleri</h4>
+
+        <div class="buton-container">
+            <div class="buton-create-list">
+
+                <a class="btn btn-primary" asp-controller="Admin" asp-action="Category">Category</a>
+                <a class="btn btn-primary" asp-controller="Admin" asp-action="Product">Product</a>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="confirm">
+        <h4>Sipariş İşlemleri</h4>
+        <a class="btn btn-success" asp-controller="Admin" asp-action="Confirmations">Confirmations</a>
+    </div>
+</div>
+
+
+
+

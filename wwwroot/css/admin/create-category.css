@@ -1,0 +1,14 @@
+﻿.create-category-form-container{
+    display:flex;
+    flex-direction:column;
+
+}
+.create-category-container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.create-category-form-container label{
+    color:brown;
+    font-weight: 600;
+}

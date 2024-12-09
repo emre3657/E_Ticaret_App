@@ -1,0 +1,63 @@
+﻿@model MagazaApp.Models.Order
+@using System.Globalization
+
+@{
+    Layout = "_Layout";
+}
+
+@section order_detail{
+    <link rel="stylesheet" href="~/css/home/orderAndDetails.css" asp-append-version="true" />
+
+}
+
+
+<div class="top">
+    <h2 class="h2-detail">Sipariş Detayları</h2>
+    <button class="back-detail" onclick="window.location.href='/Home/Orders'">Geri</button>
+</div>
+
+<hr />
+<div class="order-details">
+    <p><strong>Sipariş Numarası:</strong> @Model.OrderId</p>
+    <p><strong>Tarih / Saat:</strong> @Model.OrderDate.ToString("dd.MM.yyyy '/' HH:mm")</p>
+    <p>
+        <strong>Durum:</strong>  <span style="
+            background-color: @(Model.Status == OrderStatus.Pending ? "#ffc107" : Model.Status == OrderStatus.Approved ? "#28a745" : "#dc3545");
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;">
+            @Model.Status
+        </span>
+    </p>
+    <p><strong>Toplam Tutar:</strong> @Model.TotalAmount.ToString("C", new CultureInfo("tr-TR"))</p>
+</div>
+
+
+
+<h3>Sipariş İçeriği</h3>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Ürün</th>
+            <th>Resim</th>
+            <th>Adet</th>
+            <th>Birim Fiyat</th>
+            <th>Toplam</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderItems)
+        {
+            <tr>
+                <td>@item.Product.SKU</td>
+                <td>
+                    <img src="@item.Product.ImagePath" />
+                </td>
+                <td>@item.Quantity</td>
+                <td>@item.UnitPrice.ToString("C", new CultureInfo("tr-TR"))</td>
+                <td>@((item.Quantity * item.UnitPrice).ToString("C", new CultureInfo("tr-TR")))</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,59 @@
+﻿@model MagazaApp.Models.User
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "_Layout";
+}
+
+@section login_register {
+    <link rel="stylesheet" href="~/css/home/login-register.css" asp-append-version="true" />
+}
+
+<div class="form-container">
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <h2>Welcome Back</h2>
+    <p class="text-center mb-3">Log in to continue</p>
+
+    <form method="post" asp-controller="Home" asp-action="Login" class="login-form">
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input class="form-control" asp-for="Email" placeholder="Enter your email" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input class="form-control" asp-for="Password" type="password" placeholder="Enter your password" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100 btn-lg mt-3">Login</button>
+    </form>
+
+    <p class="text-center mt-3">
+        <a href="#" class="forgot-password">Forgot password?</a>
+    </p>
+
+    <p class="text-center mt-2">
+        Don’t have an account? <a asp-action="Register" asp-controller="Home" class="register-link">Sign up here</a>
+    </p>
+</div>
+
+
+
+
+
+

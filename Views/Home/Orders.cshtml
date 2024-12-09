@@ -1,0 +1,72 @@
+﻿@model List<MagazaApp.Models.Order>
+@using System.Globalization
+
+@section order_detail {
+    <link rel="stylesheet" href="~/css/home/orderAndDetails.css" asp-append-version="true" />
+   
+ 
+}
+
+@{
+    ViewData["Title"] = "Siparişlerim";
+    Layout = "_Layout";
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success mt-2">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<div class="top">
+    <h2 class="h2-order">Siparişlerim</h2>
+    <button class="back-home" onclick="window.location.href='/Home/Index'">Anasayfaya Dön</button>
+</div>
+
+
+<hr />
+
+
+@if (!Model.Any())
+{
+    <p class="empty-message">Henüz bir siparişiniz bulunmamaktadır.</p>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Sipariş Numarası</th>
+                <th>Tarih / Saat</th>
+                <th>Durum</th>
+                <th>Toplam Tutar</th>
+                <th>Detaylar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td>@order.OrderId</td>
+                    <td>@order.OrderDate.ToString("dd.MM.yyyy '/' HH:mm")</td>
+                    <td>
+                        <span style="
+                            background-color: @(order.Status == OrderStatus.Pending ? "#ffc107" : order.Status == OrderStatus.Approved ? "#28a745" : "#dc3545");
+                            color: white;
+                            padding: 5px 10px;
+                            border-radius: 5px;
+                            font-weight: bold;">
+                            @order.Status
+                        </span>
+                    </td>
+                    <td>@order.TotalAmount.ToString("C", new CultureInfo("tr-TR"))</td>
+                    <td>
+                        <a asp-action="OrderDetails" asp-route-id="@order.OrderId" class="btn btn-primary">Görüntüle</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
